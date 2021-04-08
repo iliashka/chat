@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { NavLink } from 'react-router-dom';
+import {services} from '../../services/userService'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -42,6 +43,18 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const SingIn = () => {
+    const [auth, setAuth] = useState({
+        email: '',
+        password: ''
+    })
+    const handleCange = (e) => {
+        const {name, value} = e.target;
+        setAuth(auth => ({...auth, [name]: value}))
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        services.singIn(auth)
+    }
     const classes = useStyles();
     return (
         <Container component="main" maxWidth="xs">
@@ -53,8 +66,9 @@ const SingIn = () => {
                 <Typography color='secondary' component="h1" variant="h5">
                 Sign in
                 </Typography>
-                <form className={classes.form} Validate>
+                <form onSubmit={handleSubmit} className={classes.form} Validate>
                 <TextField
+                    onChange={handleCange}
                     className={classes.input}
                     variant="outlined"
                     margin="normal"
@@ -68,6 +82,7 @@ const SingIn = () => {
                     autoFocus
                 />
                 <TextField
+                    onChange={handleCange}
                     className={classes.input}
                     variant="outlined"
                     margin="normal"

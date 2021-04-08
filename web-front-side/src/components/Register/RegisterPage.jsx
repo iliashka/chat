@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useReducer, useState} from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { NavLink } from 'react-router-dom';
+import {services} from '../../services/userService'
 
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -41,6 +42,21 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const RegisterPage = () => {
+    const [user, setUser] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        hash: '',
+        password: ''
+    })
+    const handleCange = (e) => {
+        const {name, value} = e.target;
+        setUser(user => ({...user, [name]: value}))
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        services.register(user)
+    }
     const classes = useStyles();
     return (
         <div className={classes.register}>
@@ -53,10 +69,11 @@ const RegisterPage = () => {
                     <Typography color="secondary" component="h1" variant="h5">
                     Sign up
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form onSubmit={handleSubmit} className={classes.form} noValidate>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                         <TextField
+                            onChange={handleCange}
                             className={classes.input}
                             autoComplete="fname"
                             name="firstName"
@@ -71,6 +88,7 @@ const RegisterPage = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                         <TextField
+                            onChange={handleCange}
                             className={classes.input}
                             variant="outlined"
                             required
@@ -84,6 +102,7 @@ const RegisterPage = () => {
                         </Grid>
                         <Grid item xs={12}>
                         <TextField
+                            onChange={handleCange}
                             className={classes.input}
                             variant="outlined"
                             required
@@ -97,6 +116,7 @@ const RegisterPage = () => {
                         </Grid>
                         <Grid item xs={12}>
                         <TextField
+                            onChange={handleCange}
                             className={classes.input}
                             variant="outlined"
                             required
@@ -111,6 +131,7 @@ const RegisterPage = () => {
                         </Grid>
                         <Grid item xs={12}>
                         <TextField
+                            onChange={handleCange}
                             className={classes.input}
                             variant="outlined"
                             required

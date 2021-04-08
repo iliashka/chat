@@ -1,0 +1,7 @@
+export const userConstants = {
+    PUT_FIRSTNAME: "PUT_FIRSTNAME",
+    PUT_LASTNAME: "PUT_LASTNAME",
+    PUT_EMAIL: "PUT_EMAIL",
+    PUT_PASSWORD: "PUT_PASSWORD",
+    PUT_HASH: "PUT_HASH"
+}
